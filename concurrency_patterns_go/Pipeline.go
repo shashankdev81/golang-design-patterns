@@ -60,12 +60,12 @@ func main() {
 	div := func(x int, y int) int { return x / y }
 
 	apply := func(values []int, factor int, intFunc func(a int, b int) int) []int {
-		dividedValues := make([]int, len(values))
+		returnValues := make([]int, len(values))
 
 		for i, v := range values {
-			dividedValues[i] = intFunc(v, factor)
+			returnValues[i] = intFunc(v, factor)
 		}
-		return dividedValues
+		return returnValues
 
 	}
 
@@ -77,11 +77,11 @@ func main() {
 		Cons: less expressive power, n function calls
 	*/
 	streamFunc := func(values []int, addFactor int, mulFactor int, divFactor int) []int {
-		dividedValues := make([]int, len(values))
+		returnValues := make([]int, len(values))
 		for i, v := range values {
-			dividedValues[i] = div(mul(add(v, addFactor), mulFactor), divFactor)
+			returnValues[i] = div(mul(add(v, addFactor), mulFactor), divFactor)
 		}
-		return dividedValues
+		return returnValues
 	}
 	fmt.Println("Stream processing pipeline functional way:", streamFunc([]int{2, 4, 6}, 3, 5, 4))
 

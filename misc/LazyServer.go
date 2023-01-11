@@ -5,11 +5,26 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
+func TestEndpoint(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(200)
+	w.Write([]byte("Test is what we usually do"))
+}
 func main() {
 	http.HandleFunc("/", LazyServer)
 	http.ListenAndServe(":1111", nil)
+
+	router := mux.NewRouter()
+	router.HandleFunc("/test", TestEndpoint).Methods("GET")
+
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+
 }
 
 func LazyServer(w http.ResponseWriter, r *http.Request) {
